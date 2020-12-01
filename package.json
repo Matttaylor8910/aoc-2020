@@ -1,0 +1,14 @@
+{
+  "name": "aoc-2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "print": "tsc day$npm_config_day/day$npm_config_day.ts && node day$npm_config_day/day$npm_config_day.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.1.2"
+  }
+}
