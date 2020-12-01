@@ -6,4 +6,4 @@
 
 #### Run
 
-Run ```npm run print --day=01```
+`npm run print --day=01`
