@@ -8,7 +8,7 @@ function partOne(numbers: number[]): string|number {
       if (a + b === TARGET) {
         return a * b;
       }
-    } 
+    }
   }
   return 'error';
 }
@@ -21,15 +21,15 @@ function partTwo(numbers: number[]): string|number {
           return a * b * c;
         }
       }
-    } 
+    }
   }
   return 'error';
 }
 
 function parseInput(): number[] {
   return fs.readFileSync('day01/day01.txt', 'utf8')
-    .split('\n')
-    .map(x => parseInt(x));
+      .split('\n')
+      .map(x => parseInt(x));
 }
 
 const numbers = parseInput();

@@ -5,7 +5,7 @@ enum Square {
   TREE = '#',
 }
 
-function partOne(rows: string[][], right: number, down: number) {
+function partOne(rows: string[][], right: number, down: number): number {
   let trees = 0;
   let col = right;
 
@@ -19,18 +19,15 @@ function partOne(rows: string[][], right: number, down: number) {
   return trees;
 }
 
-function partTwo(rows: string[][]) {
-  return partOne(rows, 1, 1) *
-    partOne(rows, 3, 1) *
-    partOne(rows, 5, 1) *
-    partOne(rows, 7, 1) *
-    partOne(rows, 1, 2);
+function partTwo(rows: string[][]): number {
+  return partOne(rows, 1, 1) * partOne(rows, 3, 1) * partOne(rows, 5, 1) *
+      partOne(rows, 7, 1) * partOne(rows, 1, 2);
 }
 
 function parseInput(): string[][] {
   return fs.readFileSync('day03/day03.txt', 'utf8')
-    .split('\n')
-    .map(row => row.split(''));
+      .split('\n')
+      .map(row => row.split(''));
 }
 
 const rows = parseInput();
