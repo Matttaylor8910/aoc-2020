@@ -43,7 +43,7 @@ function isValid(key: string, passport: any): boolean {
         return inRange(cm[0], 150, 193);
       }
     case 'hcl':
-      return isHexColor(value);
+      return value.match(/^#[0-9a-f]{6}$/);
     case 'ecl':
       return ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(value);
     case 'pid':
@@ -56,12 +56,6 @@ function isValid(key: string, passport: any): boolean {
 function inRange(num: string|number, min: number, max: number): boolean {
   num = typeof num === 'string' ? parseInt(num) : num;
   return min <= num && num <= max;
-}
-
-function isHexColor(hex: string): boolean {
-  if (!hex.length) return false;
-  const sub = hex.substring(1);
-  return hex[0] === '#' && sub.length === 6 && !isNaN(Number('0x' + sub));
 }
 
 function parseInput(): Passport[] {
