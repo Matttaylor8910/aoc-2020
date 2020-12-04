@@ -1,92 +1,62 @@
 import fs = require('fs');
 
+interface Passport {
+  [key: string]: string;
+}
+
 const required = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'];
 
-function partOne(passports: any[]) {
-  return passports
-      .filter(passport => {
-        for (const key of required) {
-          if (!passport[key]) {
-            return false;
-          }
-        }
-        return true;
-      })
+function partOne(passports: Passport[]) {
+  return passports.filter(passport => required.every(key => passport[key]))
       .length;
 }
 
-function partTwo(passports: any[]) {
+function partTwo(passports: Passport[]) {
   return passports
-      .filter(passport => {
-        for (const key of required) {
-          if (!passport[key]) {
-            return false;
-          }
-
-          switch (key) {
-            case 'byr':
-              const byr = parseInt(passport[key]);
-              if (byr < 1920 || byr > 2002) {
-                return false;
-              }
-              break;
-            case 'iyr':
-              const iyr = parseInt(passport[key]);
-              if (iyr < 2010 || iyr > 2020) {
-                return false;
-              }
-              break;
-            case 'eyr':
-              const eyr = parseInt(passport[key]);
-              if (eyr < 2020 || eyr > 2030) {
-                return false;
-              }
-              break;
-            case 'hgt':
-              const hgt = passport[key] as string;
-              const cm = hgt.split('cm');
-              const inch = hgt.split('in');
-
-              // working with inches
-              if (cm[0].includes('in')) {
-                let value = parseInt(inch[0]);
-                if (value < 59 || value > 76) {
-                  return false;
-                }
-              }
-
-              // working with cm
-              else {
-                let value = parseInt(cm[0]);
-                if (value < 150 || value > 193) {
-                  return false;
-                }
-              }
-              break;
-            case 'hcl':
-              const hcl = passport[key];
-              if (!isHexColor(hcl)) {
-                return false;
-              }
-              break;
-            case 'ecl':
-              const ecl = passport[key];
-              if (!['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(
-                      ecl)) {
-                return false;
-              }
-              break;
-            case 'pid':
-              const pid = passport[key];
-              if (pid.length !== 9 || isNaN(pid)) {
-                return false;
-              }
-              break;
-          }
-        }
-        return true;
-      })
+      .filter(passport => required.every(key => isValid(key, passport)))
       .length;
+}
+
+function isValid(key: string, passport: any): boolean {
+  if (!passport[key]) {
+    return false;
+  }
+
+  switch (key) {
+    case 'byr':
+      return inRange(parseInt(passport[key]), 1920, 2002);
+    case 'iyr':
+      return inRange(parseInt(passport[key]), 2010, 2020);
+    case 'eyr':
+      return inRange(parseInt(passport[key]), 2020, 2030);
+    case 'hgt':
+      const hgt = passport[key] as string;
+      const cm = hgt.split('cm');
+      const inch = hgt.split('in');
+
+      // working with inches
+      if (cm[0].includes('in')) {
+        return inRange(parseInt(inch[0]), 59, 76);
+      }
+      // working with cm
+      else {
+        return inRange(parseInt(cm[0]), 150, 193);
+      }
+    case 'hcl':
+      return isHexColor(passport[key]);
+    case 'ecl':
+      return ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(
+          passport[key]);
+    case 'pid':
+      const pid = passport[key];
+      return pid.length === 9 && !isNaN(pid);
+    default:
+      return false;
+  }
+}
+
+function inRange(num: number, min: number, max: number): boolean {
+  return min <= num && num <= max;
 }
 
 function isHexColor(hex: string) {
@@ -96,7 +66,7 @@ function isHexColor(hex: string) {
       !isNaN(Number('0x' + hex))
 }
 
-function parseInput(): any[] {
+function parseInput(): Passport[] {
   let passports = [];
   let currentPassport = {};
 
