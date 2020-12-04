@@ -59,9 +59,7 @@ function inRange(num: string|number, min: number, max: number): boolean {
 }
 
 function isHexColor(hex: string): boolean {
-  if (typeof hex !== 'string' || hex.length === 0) {
-    return false;
-  }
+  if (!hex.length) return false;
   const sub = hex.substring(1);
   return hex[0] === '#' && sub.length === 6 && !isNaN(Number('0x' + sub));
 }
