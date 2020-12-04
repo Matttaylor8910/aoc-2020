@@ -17,7 +17,7 @@ function partTwo(passports: Passport[]) {
       .length;
 }
 
-function isValid(key: string, passport: any): boolean {
+function isValid(key: string, passport: Passport): boolean {
   const value = passport[key];
   if (!value) {
     return false;
@@ -43,18 +43,18 @@ function isValid(key: string, passport: any): boolean {
         return inRange(cm[0], 150, 193);
       }
     case 'hcl':
-      return value.match(/^#[0-9a-f]{6}$/);
+      return value.match(/^#[0-9a-f]{6}$/) !== null;
     case 'ecl':
       return ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(value);
     case 'pid':
-      return value.length === 9 && !isNaN(value);
+      return value.length === 9 && !isNaN(Number(value));
     default:
       return false;
   }
 }
 
 function inRange(num: string|number, min: number, max: number): boolean {
-  num = typeof num === 'string' ? parseInt(num) : num;
+  num = Number(num);
   return min <= num && num <= max;
 }
 
