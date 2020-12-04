@@ -18,44 +18,43 @@ function partTwo(passports: Passport[]) {
 }
 
 function isValid(key: string, passport: any): boolean {
-  if (!passport[key]) {
+  const value = passport[key];
+  if (!value) {
     return false;
   }
 
   switch (key) {
     case 'byr':
-      return inRange(parseInt(passport[key]), 1920, 2002);
+      return inRange(value, 1920, 2002);
     case 'iyr':
-      return inRange(parseInt(passport[key]), 2010, 2020);
+      return inRange(value, 2010, 2020);
     case 'eyr':
-      return inRange(parseInt(passport[key]), 2020, 2030);
+      return inRange(value, 2020, 2030);
     case 'hgt':
-      const hgt = passport[key] as string;
-      const cm = hgt.split('cm');
-      const inch = hgt.split('in');
+      const cm = value.split('cm');
+      const inch = value.split('in');
 
       // working with inches
       if (cm[0].includes('in')) {
-        return inRange(parseInt(inch[0]), 59, 76);
+        return inRange(inch[0], 59, 76);
       }
       // working with cm
       else {
-        return inRange(parseInt(cm[0]), 150, 193);
+        return inRange(cm[0], 150, 193);
       }
     case 'hcl':
-      return isHexColor(passport[key]);
+      return isHexColor(value);
     case 'ecl':
-      return ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(
-          passport[key]);
+      return ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(value);
     case 'pid':
-      const pid = passport[key];
-      return pid.length === 9 && !isNaN(pid);
+      return value.length === 9 && !isNaN(value);
     default:
       return false;
   }
 }
 
-function inRange(num: number, min: number, max: number): boolean {
+function inRange(num: string|number, min: number, max: number): boolean {
+  num = typeof num === 'string' ? parseInt(num) : num;
   return min <= num && num <= max;
 }
 
