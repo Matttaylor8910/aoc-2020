@@ -12,7 +12,7 @@ function partOne(forms: CustomsDeclarationForm[]) {
   // For each group, count the number of questions to which anyone answered
   // "yes". What is the sum of those counts?
   return forms.map(line => Object.keys(line.questions).length)
-      .reduce((a, b) => a + b, 0);
+      .reduce((a, b) => a + b);
 }
 
 function partTwo(forms: CustomsDeclarationForm[]) {
@@ -24,7 +24,7 @@ function partTwo(forms: CustomsDeclarationForm[]) {
             .filter(key => form.questions[key] === form.people)
             .length;
       })
-      .reduce((a, b) => a + b, 0);
+      .reduce((a, b) => a + b);
 }
 
 function parseInput(): CustomsDeclarationForm[] {
