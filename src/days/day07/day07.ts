@@ -41,22 +41,24 @@ function bagsInside(bag: Bag): number {
 }
 
 function parseFileAndBuildBagMap() {
-  fs.readFileSync('day07/day07.txt', 'utf8').split('\n').forEach(line => {
-    const split = line.split(' bags contain ');
-    const bag = {name: split[0], bags: {}};
+  fs.readFileSync('src/days/day07/day07.txt', 'utf8')
+      .split('\n')
+      .forEach(line => {
+        const split = line.split(' bags contain ');
+        const bag = {name: split[0], bags: {}};
 
-    split[1].split(', ').forEach(bagPart => {
-      const spaceSplit = bagPart.split(' ');
-      const count = Number(spaceSplit[0]);
-      if (isNaN(count)) {
-        return;
-      }
-      const name = spaceSplit.slice(1, spaceSplit.length - 1).join(' ');
-      bag.bags[name] = count;
-    });
+        split[1].split(', ').forEach(bagPart => {
+          const spaceSplit = bagPart.split(' ');
+          const count = Number(spaceSplit[0]);
+          if (isNaN(count)) {
+            return;
+          }
+          const name = spaceSplit.slice(1, spaceSplit.length - 1).join(' ');
+          bag.bags[name] = count;
+        });
 
-    bagMap[bag.name] = bag;
-  });
+        bagMap[bag.name] = bag;
+      });
 }
 
 parseFileAndBuildBagMap();

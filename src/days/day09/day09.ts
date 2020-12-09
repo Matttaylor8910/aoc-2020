@@ -45,9 +45,11 @@ function partTwo(numbers: number[]) {
 }
 
 function parseInput(): number[] {
-  return fs.readFileSync('day09/day09.txt', 'utf8').split('\n').map(line => {
-    return Number(line);
-  });
+  return fs.readFileSync('src/days/day09/day09.txt', 'utf8')
+      .split('\n')
+      .map(line => {
+        return Number(line);
+      });
 }
 
 const numbers = parseInput();

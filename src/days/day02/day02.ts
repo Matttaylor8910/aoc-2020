@@ -29,17 +29,19 @@ function partTwo(policies: PasswordPolicy[]): string|number {
 }
 
 function parseInput(): PasswordPolicy[] {
-  return fs.readFileSync('day02/day02.txt', 'utf8').split('\n').map(x => {
-    const split = x.split(' ');
-    const minMax = split[0].split('-');
+  return fs.readFileSync('src/days/day02/day02.txt', 'utf8')
+      .split('\n')
+      .map(x => {
+        const split = x.split(' ');
+        const minMax = split[0].split('-');
 
-    return {
-      char: split[1].split(':')[0],
-      min: parseInt(minMax[0]),
-      max: parseInt(minMax[1]),
-      password: split[2],
-    };
-  });
+        return {
+          char: split[1].split(':')[0],
+          min: parseInt(minMax[0]),
+          max: parseInt(minMax[1]),
+          password: split[2],
+        };
+      });
 }
 
 const policies = parseInput();

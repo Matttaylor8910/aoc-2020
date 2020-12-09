@@ -27,7 +27,7 @@ function partTwo(numbers: number[]): string|number {
 }
 
 function parseInput(): number[] {
-  return fs.readFileSync('day01/day01.txt', 'utf8')
+  return fs.readFileSync('src/days/day01/day01.txt', 'utf8')
       .split('\n')
       .map(x => parseInt(x));
 }

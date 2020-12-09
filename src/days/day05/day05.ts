@@ -32,7 +32,9 @@ function partTwo(seats: Seat[]) {
 }
 
 function parseInput(): Seat[] {
-  return fs.readFileSync('day05/day05.txt', 'utf8').split('\n').map(getSeat);
+  return fs.readFileSync('src/days/day05/day05.txt', 'utf8')
+      .split('\n')
+      .map(getSeat);
 }
 
 function getSeat(line: string) {
