@@ -12,10 +12,11 @@ function partOne(adapters: number[]) {
 }
 
 function partTwo(adapters: number[]) {
-  return getPaths(0, adapters, {});
+  return getPaths(0, 0, adapters, {});
 }
 
 function getPaths(
+    index: number,
     currentJolts: number,
     adapters: number[],
     map: {[hash: string]: number},
@@ -24,8 +25,7 @@ function getPaths(
   if (adapters.length === 1) return 1;
 
   // look for stored result for this set of adapters
-  const hash = adapters.join('_');
-  if (map[hash]) return map[hash];
+  if (map[index]) return map[index];
 
   // new set, count paths for valid next adapters
   let paths = 0;
@@ -33,12 +33,12 @@ function getPaths(
   for (let i = 0; i < MAX_DIFFERENCE && i < adapters.length; i++) {
     const next = adapters[i];
     if (currentJolts < next && next <= maxJolts) {
-      paths += getPaths(next, adapters.slice(i + 1), map);
+      paths += getPaths(index + i + 1, next, adapters.slice(i + 1), map);
     }
   }
 
   // store and return
-  map[hash] = paths;
+  map[index] = paths;
   return paths;
 }
 
