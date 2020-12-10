@@ -1,27 +1,23 @@
 import fs = require('fs');
 
+const MAX_DIFFERENCE = 3;
+
 function partOne(adapters: number[]) {
-  let ones = 0;
-  let threes = 0;
+  const diffs = {};
   for (let i = 1; i < adapters.length; i++) {
     const diff = adapters[i] - adapters[i - 1];
-    if (diff === 1) {
-      ones++;
-    } else if (diff === 3) {
-      threes++;
-    }
+    diffs[diff] = (diffs[diff] || 0) + 1;
   }
-  return ones * threes;
+  return diffs[1] * diffs[3];
 }
 
-function partTwo(adapters: number[], maxDifference: number) {
-  return getPaths(0, adapters, maxDifference, {});
+function partTwo(adapters: number[]) {
+  return getPaths(0, adapters, {});
 }
 
 function getPaths(
     currentJolts: number,
     adapters: number[],
-    maxDifference: number,
     map: {[hash: string]: number},
 ) {
   // only 1 adapter? only one path
@@ -33,11 +29,11 @@ function getPaths(
 
   // new set, count paths for valid next adapters
   let paths = 0;
-  const maxJolts = currentJolts + maxDifference;
-  for (let i = 0; i < maxDifference && i < adapters.length; i++) {
+  const maxJolts = currentJolts + MAX_DIFFERENCE;
+  for (let i = 0; i < MAX_DIFFERENCE && i < adapters.length; i++) {
     const next = adapters[i];
     if (currentJolts < next && next <= maxJolts) {
-      paths += getPaths(next, adapters.slice(i + 1), maxDifference, map);
+      paths += getPaths(next, adapters.slice(i + 1), map);
     }
   }
 
@@ -47,19 +43,19 @@ function getPaths(
 }
 
 function parseInput(): number[] {
-  return fs.readFileSync('src/days/day10/day10.txt', 'utf8')
-      .split('\n')
-      .map(line => {
-        return Number(line);
-      })
-      .sort((a, b) => a - b);
+  const adapters = fs.readFileSync('src/days/day10/day10.txt', 'utf8')
+                       .split('\n')
+                       .map(line => {
+                         return Number(line);
+                       })
+                       .sort((a, b) => a - b);
+
+  // add the imaginary (0) and (max + 3) to the ends of the array
+  adapters.unshift(0);
+  adapters.push(adapters[adapters.length - 1] + MAX_DIFFERENCE);
+  return adapters;
 }
 
-const maxDifference = 3;
 const adapters = parseInput();
-// add the imaginary (0) and (max + 3) to the ends of the array
-adapters.unshift(0);
-adapters.push(adapters[adapters.length - 1] + maxDifference);
-
 console.log(partOne(adapters));
-console.log(partTwo(adapters, maxDifference));
+console.log(partTwo(adapters));
