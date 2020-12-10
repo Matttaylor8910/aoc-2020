@@ -32,18 +32,18 @@ function getPaths(
   if (map[hash]) return map[hash];
 
   // new set, count paths for valid next adapters
-  let answer = 0;
+  let paths = 0;
   const maxJolts = currentJolts + maxDifference;
   for (let i = 0; i < maxDifference && i < adapters.length; i++) {
     const next = adapters[i];
     if (currentJolts < next && next <= maxJolts) {
-      answer += getPaths(next, adapters.slice(i + 1), maxDifference, map);
+      paths += getPaths(next, adapters.slice(i + 1), maxDifference, map);
     }
   }
 
   // store and return
-  map[hash] = answer;
-  return answer;
+  map[hash] = paths;
+  return paths;
 }
 
 function parseInput(): number[] {
