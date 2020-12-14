@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 interface CustomsDeclarationForm {
   questions: {
@@ -32,20 +32,18 @@ function parseInput(): CustomsDeclarationForm[] {
   let questions = {};
   let people = 0;
 
-  fs.readFileSync('src/days/day06/day06.txt', 'utf8')
-      .split('\n')
-      .forEach(line => {
-        if (line === '') {
-          forms.push({questions, people});
-          questions = {};
-          people = 0;
-        } else {
-          people++;  // each line is one person
-          for (const char of line.split('')) {
-            questions[char] = (questions[char] || 0) + 1;
-          }
-        }
-      });
+  readFile().forEach(line => {
+    if (line === '') {
+      forms.push({questions, people});
+      questions = {};
+      people = 0;
+    } else {
+      people++;  // each line is one person
+      for (const char of line.split('')) {
+        questions[char] = (questions[char] || 0) + 1;
+      }
+    }
+  });
 
   return forms;
 }

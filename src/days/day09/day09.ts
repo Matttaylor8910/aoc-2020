@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 function partOne(numbers: number[]) {
   for (let i = 25; i < numbers.length; i++) {
@@ -45,11 +45,7 @@ function partTwo(numbers: number[]) {
 }
 
 function parseInput(): number[] {
-  return fs.readFileSync('src/days/day09/day09.txt', 'utf8')
-      .split('\n')
-      .map(line => {
-        return Number(line);
-      });
+  return readFile().map(Number);
 }
 
 const numbers = parseInput();

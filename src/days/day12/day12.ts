@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 enum Direction {
   N = 'N',
@@ -132,14 +132,12 @@ function rotateWaypoint(
 }
 
 function parseInput(): Instruction[] {
-  return fs.readFileSync('src/days/day12/day12.txt', 'utf8')
-      .split('\n')
-      .map(line => {
-        return {
-          direction: line[0] as Direction,
-          value: Number(line.substr(1)),
-        };
-      });
+  return readFile().map(line => {
+    return {
+      direction: line[0] as Direction,
+      value: Number(line.substr(1)),
+    };
+  });
 }
 
 console.log(partOne(parseInput()));

@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 interface Passport {
   [key: string]: string;
@@ -62,19 +62,17 @@ function parseInput(): Passport[] {
   let passports = [];
   let currentPassport = {};
 
-  fs.readFileSync('src/days/day04/day04.txt', 'utf8')
-      .split('\n')
-      .forEach(line => {
-        if (line === '') {
-          passports.push(currentPassport);
-          currentPassport = {};
-        } else {
-          for (const item of line.split(' ')) {
-            const split = item.split(':');
-            currentPassport[split[0]] = split[1];
-          }
-        }
-      });
+  readFile().forEach(line => {
+    if (line === '') {
+      passports.push(currentPassport);
+      currentPassport = {};
+    } else {
+      for (const item of line.split(' ')) {
+        const split = item.split(':');
+        currentPassport[split[0]] = split[1];
+      }
+    }
+  });
 
   return passports;
 }

@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 interface Seat {
   line: string;
@@ -32,9 +32,7 @@ function partTwo(seats: Seat[]) {
 }
 
 function parseInput(): Seat[] {
-  return fs.readFileSync('src/days/day05/day05.txt', 'utf8')
-      .split('\n')
-      .map(getSeat);
+  return readFile().map(getSeat);
 }
 
 function getSeat(line: string) {

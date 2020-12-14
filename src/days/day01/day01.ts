@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 const TARGET = 2020;
 
@@ -27,9 +27,7 @@ function partTwo(numbers: number[]): string|number {
 }
 
 function parseInput(): number[] {
-  return fs.readFileSync('src/days/day01/day01.txt', 'utf8')
-      .split('\n')
-      .map(x => parseInt(x));
+  return readFile().map(x => parseInt(x));
 }
 
 const numbers = parseInput();

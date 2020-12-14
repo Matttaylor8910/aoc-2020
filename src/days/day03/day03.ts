@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 enum Square {
   OPEN = '.',
@@ -25,9 +25,7 @@ function partTwo(rows: string[][]): number {
 }
 
 function parseInput(): string[][] {
-  return fs.readFileSync('src/days/day03/day03.txt', 'utf8')
-      .split('\n')
-      .map(row => row.split(''));
+  return readFile().map(row => row.split(''));
 }
 
 const rows = parseInput();

@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 interface Route {
   id: number;
@@ -50,7 +50,7 @@ function chineseRemainderTheorum(congruences: Congruence[]): number {
 }
 
 function parseInput(): {arrival: number, routes: Route[]} {
-  const lines = fs.readFileSync('src/days/day13/day13.txt', 'utf8').split('\n');
+  const lines = readFile();
   return {
     arrival: Number(lines[0]),
     routes: lines[1]

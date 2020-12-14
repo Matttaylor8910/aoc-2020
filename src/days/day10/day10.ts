@@ -1,4 +1,4 @@
-import fs = require('fs');
+import {readFile} from '../../common/file';
 
 const MAX_DIFFERENCE = 3;
 
@@ -43,12 +43,7 @@ function getPaths(
 }
 
 function parseInput(): number[] {
-  const adapters = fs.readFileSync('src/days/day10/day10.txt', 'utf8')
-                       .split('\n')
-                       .map(line => {
-                         return Number(line);
-                       })
-                       .sort((a, b) => a - b);
+  const adapters = readFile().map(Number).sort((a, b) => a - b);
 
   // add the imaginary (0) and (max + 3) to the ends of the array
   adapters.unshift(0);

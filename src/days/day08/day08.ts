@@ -1,6 +1,7 @@
-import fs = require('fs');
 import {cloneDeep} from 'lodash';
-import {Operation, Instruction, run} from '../../common/computer';
+
+import {Instruction, Operation, run} from '../../common/computer';
+import {readFile} from '../../common/file';
 
 function partTwo(instructions: Instruction[]) {
   for (let i = 0; i < instructions.length; i++) {
@@ -27,14 +28,12 @@ function partTwo(instructions: Instruction[]) {
 }
 
 function parseInput(): Instruction[] {
-  return fs.readFileSync('src/days/day08/day08.txt', 'utf8')
-      .split('\n')
-      .map(line => {
-        const split = line.split(' ');
-        return {op: split[0] as Operation, arg: Number(split[1])};
-      });
+  return readFile().map(line => {
+    const split = line.split(' ');
+    return {op: split[0] as Operation, arg: Number(split[1])};
+  });
 }
 
 const instructions = parseInput();
-console.log(run(instructions));
+console.log(run(instructions).accumulator);
 console.log(partTwo(instructions));
