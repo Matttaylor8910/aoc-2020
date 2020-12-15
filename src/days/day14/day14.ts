@@ -3,7 +3,7 @@ import {toBinary} from '../../common/math';
 
 function partOne() {
   let mask;
-  const map: {[key: string]: number} = {};
+  const map = new Map<string, number>();
 
   readFile().forEach(line => {
     if (line.includes('mask =')) {
@@ -13,11 +13,11 @@ function partOne() {
       const num = Number(line.split(' = ')[1]);
       const binary = toBinary(num);
       const afterMask = applyMask(binary, mask);
-      map[key] = parseInt(afterMask, 2);
+      map.set(key, parseInt(afterMask, 2));
     }
   });
 
-  return Object.values(map).reduce((a, b) => a + b);
+  return Array.from(map.values()).reduce((a, b) => a + b);
 }
 
 function applyMask(binary: string, mask: string): string {
@@ -35,7 +35,7 @@ function applyMask(binary: string, mask: string): string {
 
 function partTwo() {
   let mask;
-  const map: {[key: string]: number} = {};
+  const map = new Map<number, number>();
 
   readFile().forEach(line => {
     if (line.includes('mask =')) {
@@ -45,12 +45,12 @@ function partTwo() {
       const num = Number(line.split(' = ')[1]);
       const binary = toBinary(key);
       getAddresses(binary, mask).forEach(address => {
-        map[address] = num;
+        map.set(address, num);
       });
     }
   });
 
-  return Object.values(map).reduce((a, b) => a + b);
+  return Array.from(map.values()).reduce((a, b) => a + b);
 }
 
 function getAddresses(binary: string, mask: string): number[] {

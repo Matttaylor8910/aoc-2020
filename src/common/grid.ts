@@ -72,11 +72,12 @@ export class Grid {
    * @param col
    * @param skipOver a list of strings to skip over
    */
-  getNeighborMap(row: number, col: number, skipOver?: string[]) {
-    const map = {};
+  getNeighborMap(row: number, col: number, skipOver?: string[]):
+      Map<string, number> {
+    const map = new Map<string, number>();
 
     this.getNeighbors(row, col, skipOver).forEach(neighbor => {
-      map[neighbor] = (map[neighbor] || 0) + 1;
+      map.set(neighbor, (map.get(neighbor) || 0) + 1);
     });
 
     return map;

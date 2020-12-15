@@ -3,29 +3,29 @@ import {readFile} from '../../common/file';
 const MAX_DIFFERENCE = 3;
 
 function partOne(adapters: number[]) {
-  const diffs = {};
+  const diffs = new Map<number, number>();
   for (let i = 1; i < adapters.length; i++) {
     const diff = adapters[i] - adapters[i - 1];
-    diffs[diff] = (diffs[diff] || 0) + 1;
+    diffs.set(diff, (diffs.get(diff) || 0) + 1);
   }
-  return diffs[1] * diffs[3];
+  return diffs.get(1) * diffs.get(3);
 }
 
 function partTwo(adapters: number[]) {
-  return getPaths(0, 0, adapters, {});
+  return getPaths(0, 0, adapters, new Map());
 }
 
 function getPaths(
     index: number,
     currentJolts: number,
     adapters: number[],
-    map: {[hash: string]: number},
+    map: Map<number, number>,
 ) {
   // only 1 adapter? only one path
   if (adapters.length === 1) return 1;
 
   // look for stored result for this set of adapters
-  if (map[index]) return map[index];
+  if (map.has(index)) return map.get(index);
 
   // new set, count paths for valid next adapters
   let paths = 0;
@@ -38,7 +38,7 @@ function getPaths(
   }
 
   // store and return
-  map[index] = paths;
+  map.set(index, paths);
   return paths;
 }
 

@@ -11,11 +11,10 @@ function getLastSpoken(numbers: number[], at: number) {
 
   for (let i = numbers.length; i < at; i++) {
     const before = spokenAt.get(lastSpoken);
+    spokenAt.set(lastSpoken, i);
     if (firstTime) {
-      spokenAt.set(lastSpoken, i);
       lastSpoken = 0;
     } else {
-      spokenAt.set(lastSpoken, i);
       lastSpoken = i - before;
     }
 
