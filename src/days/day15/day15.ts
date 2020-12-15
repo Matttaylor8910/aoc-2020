@@ -1,5 +1,4 @@
 function getLastSpoken(numbers: number[], at: number) {
-  // map of the last turn a given number was spoken at
   const spokenAt = new Map<number, number>();
   let lastSpoken: number;
   let firstTime: boolean;
