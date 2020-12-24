@@ -26,10 +26,6 @@ export function rotateMatrix(matrix: string[][]): string[][] {
 
 export function flipMatrixX(matrix: string[][]): string[][] {
   const newMatrix = [...matrix].map(row => [...row]);
-
-  for (const row of newMatrix) {
-    row.reverse();
-  }
-
+  newMatrix.forEach(row => row.reverse());
   return newMatrix;
 }
