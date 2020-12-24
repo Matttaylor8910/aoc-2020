@@ -53,14 +53,11 @@ function performFlips(flipped: Map<string, boolean>) {
           flipped.get(getKey(h + .5, v - 1)),
           flipped.get(getKey(h - .5, v - 1)),
           flipped.get(getKey(h - 1, v)),
-        ].filter(tile => tile === true)
+        ].filter(tile => !!tile)
             .length;
 
-    // black && blackNeighbors === 0 || blackNeighbors > 2 -> white
-    // white && blackNeighbors === 2 -> black
-
     // black
-    if (current === true) {
+    if (current) {
       if (neighbors === 0 || neighbors > 2) {
         toSet.push({tileKey, set: false});
       }
@@ -89,7 +86,7 @@ function getKey(h: number, v: number) {
 }
 
 function countBlack(flipped: Map<string, boolean>) {
-  return Array.from(flipped.values()).filter(bool => bool === true).length;
+  return Array.from(flipped.values()).filter(bool => !!bool).length;
 }
 
 function performOperations(operations: string[][]): Map<string, boolean> {
