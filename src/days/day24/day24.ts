@@ -71,9 +71,7 @@ function performFlips(flipped: Map<string, boolean>) {
     }
   }
 
-  for (const {tileKey, set} of toSet) {
-    flipped.set(tileKey, set);
-  }
+  toSet.forEach((({tileKey, set}) => flipped.set(tileKey, set)));
 }
 
 function getHV(key: string) {
