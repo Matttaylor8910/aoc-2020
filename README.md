@@ -10,5 +10,5 @@ My solutions to [Advent of Code 2020](https://adventofcode.com/2020) in TypeScri
 
 #### Run
 
-Run the solution for a given day like `--day=01` or `--day=12`:  
-`npm run print --day=01`
+Run the solution for a given solution like `--sol=01` or `--sol=12`:  
+`npm run print --sol=01`
